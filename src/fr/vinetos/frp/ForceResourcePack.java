@@ -22,8 +22,8 @@ public class ForceResourcePack extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        if(!Bukkit.getVersion().contains("1.8") && !Bukkit.getVersion().contains("1.9") ){
-            System.out.println("[ForceResourcePack] The plugin work only on a 1.8.X-1.9.x version.");
+        if(!Bukkit.getVersion().contains("1.8") && !Bukkit.getVersion().contains("1.9") && !Bukkit.getVersion().contains("1.10") ){
+            System.out.println("[ForceResourcePack] The plugin work only on a 1.8.X-1.10.x version.");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -42,8 +42,9 @@ public class ForceResourcePack extends JavaPlugin {
         task = Bukkit.getScheduler().scheduleSyncRepeatingTask(getInstance(), new Runnable() {
             @Override
             public void run() {
-                //
-                for(Player p : getPlayers2().keySet()){
+                Player[] players = getPlayers2().keySet().toArray(new Player[0]);
+            	
+                for(Player p : players){
                     if(System.currentTimeMillis() - getPlayers2().get(p) >= 2000){
                         p.setResourcePack(ForceResourcePack.getConfigUtils().getJoinPack());
                         getPlayers2().remove(p);
